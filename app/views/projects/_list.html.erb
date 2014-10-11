@@ -1,0 +1,35 @@
+<%
+
+show_project_manager = Setting.plugin_redmine_favorite_projects['show_project_manager']
+unless show_project_manager.nil? || show_project_manager==0
+    manager_name = Setting.plugin_redmine_favorite_projects['project_manager_name'].to_s
+else
+    manager_name = ''
+end
+
+%>
+<% if @projects.empty? %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+
+<table class="list">
+  <thead><tr>
+   <th></th>
+   <th><%=l(:label_project)%></th>
+   <% unless manager_name.empty?%><th><%= manager_name.html_safe %></th><% end %>
+   <th><%=l(:field_homepage)%></th>
+  </tr></thead>
+  <tbody>
+<% project_tree(@projects) do |project, level| %>
+  <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+   <td><%= favorite_tag(project, User.current) %></td>
+   <td class="name"><span title="<%= project.short_description %>"><%= link_to_project(project, {}, :title => project.short_description) %></span></td>
+    <% unless manager_name.empty?%><td class="name manager"><%= project_manager_list(project) %></td><% end %>
+   <td class="url"><% unless project.homepage.blank? %>
+     <%= link_to h(project.homepage), project.homepage, {:class => 'external'} %>
+    <% end %></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>

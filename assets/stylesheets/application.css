@@ -1,0 +1,10 @@
+
+/* Project table */
+
+tr.project td.name.manager {
+    padding-left: 3px!important;
+}
+
+#projects_list td.url {
+    text-align: left!important;
+}

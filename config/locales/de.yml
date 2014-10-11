@@ -1,0 +1,8 @@
+# German strings go here for Rails i18n
+de:
+  field_go_to: Gehe zum Modul
+  label_favorite_projects: Markierte Projekte
+  label_show_project_manager: Zeige Manager
+  show_project_manager_info: Hier wird festgelegt, ob auf der Projektübersichtsseite die Projektmanager zu den einzelnen Projekten angezeigt werden sollen. Diese Option kann Performance-Einbussen bedeuten.
+  label_project_manager_name: Rolle des Managers
+  project_manager_name_info: Die Rolle, welche als Manager verwendet werden soll. Der Name der Rolle wird auch auf der Projektübersichtsseite als Spaltenüberschrift verwendet.
