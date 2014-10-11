@@ -2,7 +2,8 @@
 en:
   field_go_to: Go to module
   label_favorite_projects: Favorite projects
-  label_show_project_manager: Zeige Manager
-  show_project_manager_info: Hier wird festgelegt, ob auf der Projektübersichtsseite die Projektmanager zu den einzelnen Projekten angezeigt werden sollen. Diese Option kann Performance-Einbussen bedeuten.
-  label_project_manager_name: Rolle des Managers
-  project_manager_name_info: Die Rolle, welche als Manager verwendet werden soll. Der Name der Rolle wird auch auf der Projektübersichtsseite als Spaltenüberschrift verwendet.
+  label_show_project_manager: Show manager
+  show_project_manager_info: Here you define weather the project manager for each single poject is shown on the project overview or not. This option can result in performance loss.
+  label_project_manager_name: Manager role
+  project_manager_name_info: The role, which should be used for manager. The name of the role will also be used on the project overview page as column title.
+  
