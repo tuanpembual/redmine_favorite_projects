@@ -6,9 +6,8 @@ Redmine::Plugin.register :redmine_favorite_projects do
   name 'Redmine Favorite Projects plugin'
   description 'This is a favorite projects plugin for Redmine'
   version '1.0.2'
-  url 'http://redminecrm.com/projects/favoriteprojects'
-  author 'AlphaNodes GmbH'
-  author_url 'http://alphanodes.de'
+  url 'https://github.com/alexandermeindl/redmine_favorite_projects'
+  author 'RedmineCRM, AlphaNodes GmbH'
 
   requires_redmine :version_or_higher => '2.5.2'
 
