@@ -1,9 +1,21 @@
 # English strings go here for Rails i18n
 en:
+  field_versions: Versions
   field_go_to: Go to module
+  subprojects: sub projects
+  expand_all: Expand All
+  collapse_all: Collapse All
+  show_progress: Show project progress
   label_favorite_projects: Favorite projects
   label_show_project_manager: Show manager
   show_project_manager_info: Here you define weather the project manager for each single poject is shown on the project overview or not. This option can result in performance loss.
   label_project_manager_name: Manager role
   project_manager_name_info: The role, which should be used for manager. The name of the role will also be used on the project overview page as column title.
-  
+  label_show_project_created_on: Show 'Created at'
+  label_show_project_homepage: Show project homepage url
+  label_show_project_modules: Show project modules
+  label_show_project_progress: Show project progress
+  show_project_created_on_info: Festlegen, ob das Erstellungsdatum des Projektes auf der Projektübersichtseite angezeigt wird.
+  show_project_homepage_info: Festlegen, ob die Projekt Homepage URL auf der Projektübersichtsseite angezeigt wird.
+  show_project_modules_info: Festlegen, ob die Projektmodule zum Projekt angezeigt werden.
+  show_project_progress_info: Hier wird festgelegt, ob auf der Projektübersichtsseite der Projektfortschritt angezeigt wird, sofern Versionen im Projekt verwendet werden.

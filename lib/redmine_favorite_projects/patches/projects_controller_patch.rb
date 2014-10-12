@@ -16,13 +16,12 @@ module RedmineFavoriteProjects
 
       module InstanceMethods
 
-
         def favorite
           if @project.respond_to?(:visible?) && !@project.visible?(User.current)
             render_403
           else
             set_favorite(User.current, true)
-          end       
+          end
         end
 
         def unfavorite
@@ -33,17 +32,17 @@ module RedmineFavoriteProjects
         def favorite_css(object)
           "#{object.class.to_s.underscore}-#{object.id}-favorite"
         end
-        
+
         private
-        
+
         def set_favorite(user, favorite)
-          if favorite 
+          if favorite
             favorite_project = FavoriteProject.find_by_project_id_and_user_id(@project.id, user.id)
             favorite_project.delete if favorite_project
           else
             FavoriteProject.create(:project_id => @project.id, :user_id => user.id)
           end
-          
+
           respond_to do |format|
             format.html { redirect_to :back }
           end
@@ -52,7 +51,7 @@ module RedmineFavoriteProjects
           render :text => (watching ? 'Favorite added.' : 'Favorite removed.'), :layout => true
         end
 
-        
+
       end
 
     end

@@ -4,14 +4,16 @@
 class FavoriteProjectsController < ApplicationController
   unloadable
   before_filter :find_project_by_project_id, :except => :search
-  
+
+  helper ProjectsHelper
+
   def search
     seach = params[:q] || params[:project_search]
 
     scope = Project
     scope = scope.active unless params[:closed]
-    scope = scope.scoped(:conditions =>   ["(LOWER(#{Project.table_name}.name) LIKE ? OR 
-                                             LOWER(#{Project.table_name}.description) LIKE ?)", 
+    scope = scope.scoped(:conditions =>   ["(LOWER(#{Project.table_name}.name) LIKE ? OR
+                                             LOWER(#{Project.table_name}.description) LIKE ?)",
                                                                   "%" + seach.downcase + "%",
                                                                   "%" + seach.downcase + "%"] ) unless seach.blank?
 
@@ -28,7 +30,7 @@ class FavoriteProjectsController < ApplicationController
       render_403
     else
       set_favorite(User.current, true)
-    end       
+    end
   end
 
   def unfavorite
@@ -39,17 +41,17 @@ class FavoriteProjectsController < ApplicationController
   def favorite_css(object)
     "#{object.class.to_s.underscore}-#{object.id}-favorite"
   end
-  
+
   private
-  
+
   def set_favorite(user, favorite)
-    if favorite 
+    if favorite
       favorite_project = FavoriteProject.find_by_project_id_and_user_id(@project.id, user.id)
       favorite_project.delete if favorite_project
     else
       FavoriteProject.create(:project_id => @project.id, :user_id => user.id)
     end
-    
+
     respond_to do |format|
       format.html { redirect_to :back }
       format.js { render :partial => 'set_favorite' }

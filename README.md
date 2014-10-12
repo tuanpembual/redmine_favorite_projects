@@ -5,11 +5,12 @@ Fork of http://redminecrm.com/projects/favoriteprojects/pages/1
 
 ## Changelog
 
-### 2014-10-11 v1.0.2
+### 2014-10-12 v1.0.2
 
 * added manager as row to table
 * added homepage to table
 * some updates for Redmine 2.5.x
+* include javascript for project tree view
 
 ### 2013-05-04 v1.0.1
 

@@ -15,6 +15,7 @@ module RedmineFavoriteProjects
     end
 
   end
+
 end
 
 ActionView::Base.send :include, RedmineFavoriteProjects::Helper

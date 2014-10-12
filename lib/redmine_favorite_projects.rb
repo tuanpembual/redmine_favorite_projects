@@ -3,7 +3,6 @@
 
 require 'redmine_favorite_projects/helpers/favorite_projects_helper'
 
-
 ActionDispatch::Reloader.to_prepare do
   unless ApplicationHelper.included_modules.include?(RedmineFavoriteProjects::Patches::ApplicationHelperPatch)
     ApplicationHelper.send(:include, RedmineFavoriteProjects::Patches::ApplicationHelperPatch)

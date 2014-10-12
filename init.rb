@@ -13,7 +13,11 @@ Redmine::Plugin.register :redmine_favorite_projects do
 
   default_settings = {
       'show_project_manager' => false,
-      'project_manager_name' => 'Manager'
+      'project_manager_name' => 'Manager',
+      'show_project_modules' => false,
+      'show_project_progress' => false,
+      'show_project_homepage' => true,
+      'show_project_created_on' => true
   }
   settings(:default => default_settings, :partial => 'settings/favorite_projects')
 end
