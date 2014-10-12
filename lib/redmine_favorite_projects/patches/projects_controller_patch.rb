@@ -51,7 +51,6 @@ module RedmineFavoriteProjects
           render :text => (watching ? 'Favorite added.' : 'Favorite removed.'), :layout => true
         end
 
-
       end
 
     end

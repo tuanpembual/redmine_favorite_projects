@@ -11,7 +11,7 @@ module RedmineFavoriteProjects
         base.send(:include, InstanceMethods)
 
         base.class_eval do
-          unloadable 
+          unloadable
           alias_method_chain :render_project_jump_box, :only_favorites
         end
       end
@@ -28,11 +28,11 @@ module RedmineFavoriteProjects
             "<option value=''>#{ l(:label_jump_to_a_project) }</option>" +
             '<option value="" disabled="disabled">---</option>'
             s << project_tree_options_for_select(projects, :selected => @project) do |p|
-              { :value => url_for(:controller => 'projects', :action => 'show', :id => p, :jump => current_menu_item) } 
+              { :value => url_for(:controller => 'projects', :action => 'show', :id => p, :jump => current_menu_item) }
             end
             s << '</select>'
             s.html_safe
-          end        
+          end
         end
 
       end
