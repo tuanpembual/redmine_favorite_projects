@@ -5,7 +5,7 @@ Fork of http://redminecrm.com/projects/favoriteprojects/pages/1
 
 ## Changelog
 
-### 2014-10-12 v1.0.3
+### 2014-10-21 v1.0.3
 
 * added project name view customization
 
