@@ -32,6 +32,20 @@ module FavoriteProjectsHelper
     links.join(", ").html_safe
   end
 
+  def project_name(project)
+    
+    project_name_view = Setting.plugin_redmine_favorite_projects['project_name_view']
+    
+    name = case project_name_view
+      when '1' then project.identifier
+      when '2' then project.identifier + ': ' + project.name 
+      when '3' then project.name + ': ' + project.identifier
+      else project.name
+    end
+
+    project.active? ? link_to(name, project_path(project), :title => project.short_description) : h(name)
+  end
+
   def project_manager_list(project)
     managers = ''
     manager_name = Setting.plugin_redmine_favorite_projects['project_manager_name'].to_s

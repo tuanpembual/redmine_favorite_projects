@@ -1,4 +1,15 @@
 <p>
+  <%= content_tag(:label, l(:label_project_name_view)) %>
+  <%= select_tag 'settings[project_name_view]', options_for_select({
+              l(:project_name_view_name) => '0',
+              l(:project_name_view_id) => '1',
+              l(:project_name_view_id_name) => '2',
+              l(:project_name_view_name_id) => '3'
+              }, @settings['project_name_view']) %>
+  <em class="info"><%= t(:project_name_view_info) %></em>
+</p>
+
+<p>
   <%= content_tag(:label, l(:label_show_project_manager)) %>
   <%= check_box_tag 'settings[show_project_manager]', 1, @settings[:show_project_manager] %>
   <em class="info"><%= l(:show_project_manager_info) %></em>

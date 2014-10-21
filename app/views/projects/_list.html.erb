@@ -43,7 +43,7 @@
               <% if has_children %>
                   <span class="expander" onclick="toggleShowHide(<%= "'#{project_id}'" %>)">&nbsp;</span>
               <% end %>
-              <%= project.active? ? link_to_project(project, {}, :title => project.short_description) : h(project.name) %>
+              <%= project_name(project) %>
             </td>
 
             <% unless manager_name.empty?%><td class="field"><%= project_manager_list(project) %></td><% end %>
