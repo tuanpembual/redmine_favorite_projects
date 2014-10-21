@@ -2,6 +2,8 @@
 #
 
 require 'redmine_favorite_projects/helpers/favorite_projects_helper'
+require 'redmine_favorite_projects/patches/project_patch.rb'
+require 'redmine_favorite_projects/hooks.rb'
 
 ActionDispatch::Reloader.to_prepare do
   unless ApplicationHelper.included_modules.include?(RedmineFavoriteProjects::Patches::ApplicationHelperPatch)
@@ -12,5 +14,12 @@ ActionDispatch::Reloader.to_prepare do
   end
   unless ProjectsHelper.included_modules.include?(RedmineFavoriteProjects::Patches::ProjectsHelperPatch)
     ProjectsHelper.send(:include, RedmineFavoriteProjects::Patches::ProjectsHelperPatch)
+  end
+end
+
+module RedmineFavoriteProjects
+  def self.apply_patch
+    Project.send(:include, ProjectPatch)
+    Setting.send(:include, SettingPatch)
   end
 end

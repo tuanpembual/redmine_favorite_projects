@@ -20,6 +20,7 @@ de:
   show_project_modules_info: "Festlegen, ob die Projektmodule zum Projekt angezeigt werden."
   show_project_progress_info: "Hier wird festgelegt, ob auf der Projektübersichtsseite der Projektfortschritt angezeigt wird, sofern Versionen im Projekt verwendet werden."
   label_project_name_view: "Projektname"
+  project_name_view_default: "Projektübergreifende Einstellung"
   project_name_view_name: "Projektname"
   project_name_view_id: "Projekt-Kennung"
   project_name_view_id_name: "Projektkennung: Projektname"

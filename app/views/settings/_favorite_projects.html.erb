@@ -1,11 +1,6 @@
 <p>
   <%= content_tag(:label, l(:label_project_name_view)) %>
-  <%= select_tag 'settings[project_name_view]', options_for_select({
-              l(:project_name_view_name) => '0',
-              l(:project_name_view_id) => '1',
-              l(:project_name_view_id_name) => '2',
-              l(:project_name_view_name_id) => '3'
-              }, @settings['project_name_view']) %>
+  <%= select_tag 'settings[project_name_view]', project_name_for_select(@settings[:project_name_view].to_s) %>
   <em class="info"><%= t(:project_name_view_info) %></em>
 </p>
 

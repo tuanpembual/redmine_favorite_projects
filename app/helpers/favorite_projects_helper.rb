@@ -33,16 +33,20 @@ module FavoriteProjectsHelper
   end
 
   def project_name(project)
-    
-    project_name_view = Setting.plugin_redmine_favorite_projects['project_name_view']
-    
-    name = case project_name_view
-      when '1' then project.identifier
-      when '2' then project.identifier + ': ' + project.name 
-      when '3' then project.name + ': ' + project.identifier
-      else project.name
+
+    unless project.project_name_view.blank? || project.project_name_view == "0"
+      project_name_view = project.project_name_view
+    else
+      project_name_view = Setting.plugin_redmine_favorite_projects['project_name_view']
     end
 
+    name = case project_name_view
+      when '2' then project.identifier
+      when '3' then project.identifier + ': ' + project.name 
+      when '4' then project.name + ': ' + project.identifier
+      else project.name
+    end
+    
     project.active? ? link_to(name, project_path(project), :title => project.short_description) : h(name)
   end
 
