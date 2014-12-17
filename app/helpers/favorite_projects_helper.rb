@@ -32,6 +32,21 @@ module FavoriteProjectsHelper
     links.join(", ").html_safe
   end
 
+  def project_index_cache_key
+
+    cache_key = ["projects/index", "user-#{User.current.id}/#{User.current.updated_on.iso8601}", Project.visible.first(:order=>"updated_on desc"), MemberRole.last]
+
+    unless Setting.plugin_redmine_favorite_projects['show_project_modules'].blank?
+      cache_key << EnabledModule.last
+    end
+    
+    unless Setting.plugin_redmine_favorite_projects['show_project_progress'].blank?
+      cache_key << "issue-#{Issue.visible.first(:order=>"issues.updated_on desc").updated_on.iso8601}"
+    end
+
+    cache_key
+  end
+
   def project_name(project)
 
     unless project.project_name_view.blank? || project.project_name_view == "0"

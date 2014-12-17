@@ -40,10 +40,11 @@
 </div>
 
 <% end %>
-
+<% cache project_index_cache_key do %>
 <div class="autoscroll" id="projects_list">
   <%= render :partial => 'projects/list' %>
 </div>
+<% end %>
 
 <% if User.current.logged? %>
 <p class="other-formats">
