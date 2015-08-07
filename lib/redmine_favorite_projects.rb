@@ -3,6 +3,7 @@
 
 require 'redmine_favorite_projects/helpers/favorite_projects_helper'
 require 'redmine_favorite_projects/patches/project_patch.rb'
+require 'redmine_favorite_projects/patches/setting_patch.rb'
 require 'redmine_favorite_projects/hooks.rb'
 
 ActionDispatch::Reloader.to_prepare do
