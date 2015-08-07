@@ -21,6 +21,5 @@ end
 module RedmineFavoriteProjects
   def self.apply_patch
     Project.send(:include, ProjectPatch)
-    Setting.send(:include, SettingPatch)
   end
 end
