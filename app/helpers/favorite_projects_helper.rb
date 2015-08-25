@@ -61,7 +61,15 @@ module FavoriteProjectsHelper
       else project.name
     end
     
-    project.active? ? link_to(name, project_path(project), :title => project.short_description) : h(name)
+    if project.active?
+      if Setting.plugin_redmine_favorite_projects['show_project_desc'].to_s.blank?
+        link_to(name, project_path(project), :title => project.short_description)
+      else
+        link_to(name, project_path(project))
+      end
+     else
+       h(name)
+     end
   end
 
   def project_manager_list(project)
