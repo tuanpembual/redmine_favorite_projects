@@ -5,6 +5,12 @@
 </p>
 
 <p>
+  <%= content_tag(:label, l(:label_show_project_desc)) %>
+  <%= check_box_tag 'settings[show_project_desc]', 1, @settings[:show_project_desc] %>
+  <em class="info"><%= l(:show_project_desc_info) %></em>
+</p>
+
+<p>
   <%= content_tag(:label, l(:label_show_project_manager)) %>
   <%= check_box_tag 'settings[show_project_manager]', 1, @settings[:show_project_manager] %>
   <em class="info"><%= l(:show_project_manager_info) %></em>

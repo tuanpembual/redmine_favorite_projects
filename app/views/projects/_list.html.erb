@@ -1,5 +1,6 @@
 <%
 
+   show_project_desc = Setting.plugin_redmine_favorite_projects['show_project_desc'].to_s
    show_project_manager = Setting.plugin_redmine_favorite_projects['show_project_manager']
    show_project_created_on = Setting.plugin_redmine_favorite_projects['show_project_created_on'].to_s
    show_project_homepage = Setting.plugin_redmine_favorite_projects['show_project_homepage'].to_s
@@ -24,6 +25,7 @@
       <thead><tr>
         <th></th>
         <th><%=l(:label_project)%></th>
+        <% unless show_project_desc.empty? %><th><%=l(:field_description)%></th><% end %>
         <% unless manager_name.empty? %><th><%= manager_name.html_safe %></th><% end %>
         <% unless show_project_modules.empty? %><th><%= l(:field_go_to)%></th><% end %>
         <% unless show_project_progress.empty? %><th><%= l(:field_versions)%></th><% end %>
@@ -46,6 +48,7 @@
               <%= project_name(project) %>
             </td>
 
+            <% unless show_project_desc.empty? %><td class="field"><%= textilizable(project.short_description).html_safe %></td><% end %>
             <% unless manager_name.empty?%><td class="field"><%= project_manager_list(project) %></td><% end %>
             <% unless show_project_modules.empty? %><td class="field"><%= table_view_modules_links(project) %></td><% end %>
             <% unless show_project_progress.empty? %><td class="field"><%= table_view_progress(project) %></td><% end %>

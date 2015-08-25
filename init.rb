@@ -15,6 +15,7 @@ Redmine::Plugin.register :redmine_favorite_projects do
       'project_manager_name' => 'Manager',
       'show_project_modules' => false,
       'show_project_progress' => false,
+      'show_project_desc' => true,
       'show_project_homepage' => true,
       'show_project_created_on' => true
   }
