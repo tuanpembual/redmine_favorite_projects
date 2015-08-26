@@ -41,7 +41,10 @@ module FavoriteProjectsHelper
     end
     
     unless Setting.plugin_redmine_favorite_projects['show_project_progress'].blank?
-      cache_key << "issue-#{Issue.visible.first(:order=>"issues.updated_on desc").updated_on.iso8601}"
+      progress_key = Issue.visible.order('issues.updated_on desc').first
+      unless progress_key.nil?
+        cache_key << "issue-#{progress_key.updated_on.iso8601}"
+      end
     end
     cache_key
   end
@@ -90,14 +93,14 @@ module FavoriteProjectsHelper
   def table_view_progress(project)
     s = ''
     cond = project.project_condition(false)
-
-    open_issues = Issue.visible.count(:include => [:project, :status, :tracker], :conditions => ["(#{cond}) AND #{IssueStatus.table_name}.is_closed=?", false])
+    open_issues = Issue.visible.open.where(cond).count
+    all_issues = Issue.visible.where(cond).count
 
     if open_issues > 0
-      issues_closed_percent = (1 - open_issues.to_f/project.issues.count) * 100
+      issues_closed_percent = (1 - open_issues.to_f/all_issues) * 100
       s << "<div>Issues: " +
           link_to("#{open_issues} open", :controller => 'issues', :action => 'index', :project_id => project, :set_filter => 1) +
-          "<small> / #{project.issues.count} total</small></div>" +
+          "<small> / #{all_issues} total</small></div>" +
           progress_bar(issues_closed_percent, :width => '30em', :legend => '%0.0f%' % issues_closed_percent)
     end
     project_versions = project_open(project)
@@ -133,5 +136,4 @@ module FavoriteProjectsHelper
     versions.reject! {|version| !project_ids.include?(version.project_id) && issues_by_version[version].blank?}
     versions
   end
-
 end
