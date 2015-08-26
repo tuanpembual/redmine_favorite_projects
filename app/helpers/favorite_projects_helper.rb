@@ -92,6 +92,8 @@ module FavoriteProjectsHelper
 
   def table_view_progress(project)
     s = ''
+    return s unless User.current.allowed_to?(:view_issues, project)
+
     cond = project.project_condition(false)
     open_issues = Issue.visible.open.where(cond).count
     all_issues = Issue.visible.where(cond).count
