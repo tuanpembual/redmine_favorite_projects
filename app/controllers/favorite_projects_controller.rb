@@ -51,6 +51,7 @@ class FavoriteProjectsController < ApplicationController
     else
       FavoriteProject.create(:project_id => @project.id, :user_id => user.id)
     end
+    Rails.cache.clear
 
     respond_to do |format|
       format.html { redirect_to :back }
