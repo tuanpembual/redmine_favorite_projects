@@ -15,9 +15,9 @@ module RedmineFavoriteProjects
           private
           def check_favorite_id(project_ids, project_id)
             if Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
-              !project_ids.include?(project_id)
-            else
               project_ids.include?(project_id)
+            else
+              !project_ids.include?(project_id)
             end
           end
         end

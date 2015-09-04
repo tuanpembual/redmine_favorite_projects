@@ -8,11 +8,11 @@ module FavoriteProjectsHelper
     return '' unless user && user.logged? && user.member_of?(object)
     favorite = FavoriteProject.favorite?(object.id, user.id)
     if Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
-      image_a = 'fav.png'
-      image_b = 'fav_off.png'
-    else
       image_a = 'fav_off.png'
       image_b = 'fav.png'
+    else
+      image_a = 'fav.png'
+      image_b = 'fav_off.png'
     end
 
     url = {:controller => 'favorite_projects',
