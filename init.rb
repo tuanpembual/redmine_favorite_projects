@@ -3,13 +3,15 @@
 Redmine::Plugin.register :redmine_favorite_projects do
   name 'Redmine Favorite Projects plugin'
   description 'This is a favorite projects plugin for Redmine'
-  version '1.0.3'
+  version '1.0.4'
   url 'https://github.com/alexandermeindl/redmine_favorite_projects'
   author 'RedmineCRM, AlphaNodes GmbH'
 
   requires_redmine :version_or_higher => '2.5.2'
 
   default_settings = {
+      'default_favorite_behavior' => false,
+      'show_in_app_menu' => false,
       'project_name_view' => '1',
       'show_project_manager' => false,
       'project_manager_name' => 'Manager',

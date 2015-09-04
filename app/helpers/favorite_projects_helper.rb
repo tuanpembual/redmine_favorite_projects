@@ -7,13 +7,20 @@ module FavoriteProjectsHelper
   def favorite_tag(object, user, options={})
     return '' unless user && user.logged? && user.member_of?(object)
     favorite = FavoriteProject.favorite?(object.id, user.id)
+    if Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
+      image_a = 'fav.png'
+      image_b = 'fav_off.png'
+    else
+      image_a = 'fav_off.png'
+      image_b = 'fav.png'
+    end
+
     url = {:controller => 'favorite_projects',
            :action => (favorite ? 'unfavorite' : 'favorite'),
            :project_id => object.id}
-    link = link_to(image_tag(favorite ? 'fav.png' : 'fav_off.png', :style => 'vertical-align: middle;'),
+    link = link_to(image_tag(favorite ? image_a : image_b, :style => 'vertical-align: middle;'),
                     url,
                     :remote => true)
-
     content_tag("span", link, :id => "favorite_project_#{object.id}").html_safe
   end
 
