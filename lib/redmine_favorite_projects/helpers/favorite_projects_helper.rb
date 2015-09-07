@@ -30,8 +30,21 @@ module RedmineFavoriteProjects
       options_for_select(options, :selected => selected)
     end
 
-  end
+    def get_favorite_list
+      return unless User.current.logged?
+      favorite_projects = FavoriteProject.where(:user_id => User.current.id)
+      favorite_projects_ids = favorite_projects.map(&:project_id)
+      projects = User.current.memberships.collect(&:project).compact.uniq.select{|p|check_favorite_id(favorite_projects_ids, p.id) && p.active? }
+    end
 
+    def check_favorite_id(project_ids, project_id)
+      if Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
+        project_ids.include?(project_id)
+      else
+        !project_ids.include?(project_id)
+      end
+    end
+  end
 end
 
 ActionView::Base.send :include, RedmineFavoriteProjects::Helper

@@ -7,13 +7,20 @@ module FavoriteProjectsHelper
   def favorite_tag(object, user, options={})
     return '' unless user && user.logged? && user.member_of?(object)
     favorite = FavoriteProject.favorite?(object.id, user.id)
+    if Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
+      image_a = 'fav_off.png'
+      image_b = 'fav.png'
+    else
+      image_a = 'fav.png'
+      image_b = 'fav_off.png'
+    end
+
     url = {:controller => 'favorite_projects',
            :action => (favorite ? 'unfavorite' : 'favorite'),
            :project_id => object.id}
-    link = link_to(image_tag(favorite ? 'fav.png' : 'fav_off.png', :style => 'vertical-align: middle;'),
+    link = link_to(image_tag(favorite ? image_a : image_b, :style => 'vertical-align: middle;'),
                     url,
                     :remote => true)
-
     content_tag("span", link, :id => "favorite_project_#{object.id}").html_safe
   end
 
@@ -34,16 +41,18 @@ module FavoriteProjectsHelper
 
   def project_index_cache_key
 
-    cache_key = ["projects/index", "user-#{User.current.id}/#{User.current.updated_on.iso8601}", Project.visible.first(:order=>"updated_on desc"), MemberRole.last]
+    cache_key = ["projects/index", "user-#{User.current.id}/#{User.current.updated_on.iso8601}", Project.visible.order('updated_on desc').first, MemberRole.last]
 
     unless Setting.plugin_redmine_favorite_projects['show_project_modules'].blank?
       cache_key << EnabledModule.last
     end
     
     unless Setting.plugin_redmine_favorite_projects['show_project_progress'].blank?
-      cache_key << "issue-#{Issue.visible.first(:order=>"issues.updated_on desc").updated_on.iso8601}"
+      progress_key = Issue.visible.order('issues.updated_on desc').first
+      unless progress_key.nil?
+        cache_key << "issue-#{progress_key.updated_on.iso8601}"
+      end
     end
-
     cache_key
   end
 
@@ -62,7 +71,15 @@ module FavoriteProjectsHelper
       else project.name
     end
     
-    project.active? ? link_to(name, project_path(project), :title => project.short_description) : h(name)
+    if project.active?
+      if Setting.plugin_redmine_favorite_projects['show_project_desc'].to_s.blank?
+        link_to(name, project_path(project), :title => project.short_description)
+      else
+        link_to(name, project_path(project))
+      end
+     else
+       h(name)
+     end
   end
 
   def project_manager_list(project)
@@ -82,15 +99,17 @@ module FavoriteProjectsHelper
 
   def table_view_progress(project)
     s = ''
-    cond = project.project_condition(false)
+    return s unless User.current.allowed_to?(:view_issues, project)
 
-    open_issues = Issue.visible.count(:include => [:project, :status, :tracker], :conditions => ["(#{cond}) AND #{IssueStatus.table_name}.is_closed=?", false])
+    cond = project.project_condition(false)
+    open_issues = Issue.visible.open.where(cond).count
+    all_issues = Issue.visible.where(cond).count
 
     if open_issues > 0
-      issues_closed_percent = (1 - open_issues.to_f/project.issues.count) * 100
+      issues_closed_percent = (1 - open_issues.to_f/all_issues) * 100
       s << "<div>Issues: " +
           link_to("#{open_issues} open", :controller => 'issues', :action => 'index', :project_id => project, :set_filter => 1) +
-          "<small> / #{project.issues.count} total</small></div>" +
+          "<small> / #{all_issues} total</small></div>" +
           progress_bar(issues_closed_percent, :width => '30em', :legend => '%0.0f%' % issues_closed_percent)
     end
     project_versions = project_open(project)
@@ -126,5 +145,4 @@ module FavoriteProjectsHelper
     versions.reject! {|version| !project_ids.include?(version.project_id) && issues_by_version[version].blank?}
     versions
   end
-
 end

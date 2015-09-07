@@ -10,12 +10,12 @@ class FavoriteProjectsController < ApplicationController
   def search
     seach = params[:q] || params[:project_search]
 
-    scope = Project
-    scope = scope.active unless params[:closed]
-    scope = scope.scoped(:conditions =>   ["(LOWER(#{Project.table_name}.name) LIKE ? OR
-                                             LOWER(#{Project.table_name}.description) LIKE ?)",
-                                                                  "%" + seach.downcase + "%",
-                                                                  "%" + seach.downcase + "%"] ) unless seach.blank?
+    scope = Project.visible
+    scope = Project.active unless params[:closed]
+    scope = scope.where(["(LOWER(#{Project.table_name}.name) LIKE ? OR
+                         LOWER(#{Project.table_name}.description) LIKE ?)",
+                         "%" + seach.downcase + "%",
+                         "%" + seach.downcase + "%"]) unless seach.blank?
 
     @projects = scope.visible.order('lft').all
 
@@ -51,6 +51,7 @@ class FavoriteProjectsController < ApplicationController
     else
       FavoriteProject.create(:project_id => @project.id, :user_id => user.id)
     end
+    Rails.cache.clear
 
     respond_to do |format|
       format.html { redirect_to :back }
