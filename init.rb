@@ -7,7 +7,7 @@ Redmine::Plugin.register :redmine_favorite_projects do
   url 'https://github.com/alexandermeindl/redmine_favorite_projects'
   author 'RedmineCRM, AlphaNodes GmbH'
 
-  requires_redmine :version_or_higher => '2.5.2'
+  requires_redmine :version_or_higher => '3.0.0'
 
   default_settings = {
       'default_favorite_behavior' => false,
@@ -22,6 +22,14 @@ Redmine::Plugin.register :redmine_favorite_projects do
       'show_project_created_on' => true
   }
   settings(:default => default_settings, :partial => 'settings/favorite_projects')
+
+  menu :application_menu, :favorite_menu, '', {
+    :caption => '',
+    :html => { :id => 'favorite-menu' },
+    :param => :project_id,
+    :last => true,
+    :if => Proc.new { User.current.logged? and Setting.plugin_redmine_favorite_projects['show_in_app_menu'] }
+  }
 end
 
 require 'redmine_favorite_projects'

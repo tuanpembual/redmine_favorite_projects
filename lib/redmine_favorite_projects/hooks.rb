@@ -3,7 +3,9 @@
 module RedmineFavoriteProjects
   
   class RedmineFavoriteProjectsHooksListener < Redmine::Hook::ViewListener
-    
+
+    render_on :view_layouts_base_body_bottom, :partial => 'favorite_projects/update_menu'
+
     def view_projects_form(context)
       f = context[:form]
       options = {
