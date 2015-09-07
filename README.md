@@ -1,9 +1,14 @@
 # Redmine Favorite Project (Fork)
 
-Fork of http://redminecrm.com/projects/favoriteprojects/pages/1
-
+Fork of http://www.redminecrm.com/projects/favoriteprojects/pages/1
 
 ## Changelog
+
+### 2015-09-07 v1.0.4
+
+* caching has been added for project list
+* favorite projects can be added to app_menu
+* you can configure, if user has all projects as default
 
 ### 2014-10-21 v1.0.3
 
