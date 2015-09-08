@@ -1,4 +1,5 @@
 <% if (Setting.plugin_redmine_favorite_projects['show_in_app_menu']) %>
+<div style="display:none">
 <div id="fav_projs">
     <% favorite_projects = get_favorite_list %>
     <% if !favorite_projects.nil? && favorite_projects.any? %>
@@ -6,6 +7,7 @@
             <li><%= link_to_project fav.project, {}, :class => 'icon' %></li>
         <% end %>
     <% end %>
+</div>
 </div>
   <script>
   (function() {

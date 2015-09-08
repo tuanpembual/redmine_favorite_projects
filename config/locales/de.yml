@@ -10,7 +10,7 @@ de:
   default_favorite_behavior_info_html: "Legt fest, ob alle neuen Projekte standardmässig als Favoriten hinzugefügt werden sollen. <strong>Wird diese Einstellung bei bestehenden Daten geändert, werden alle bisherigen nicht aktivierten Projekte als Favoriten erscheinen bzw. umgekehrt.</strong>"
   label_show_in_app_menu: Zeige Favoriten in Hauptmenu
   show_in_app_menu_info: "Projekte die als Favorite gekennzeichnet sind werden im Hauptmenu angezeigt. Diese Einstellung ist nur sinnvoll, wenn mit einer geringen Anzahl von Projekten gearbeitet wird."
-  label_favorite_projects: "Markierte Projekte"
+  label_favorite_projects: "Projekte als Favoriten gekennzeichnet"
   label_show_project_manager: "Zeige Manager"
   show_project_manager_info: "Hier wird festgelegt, ob auf der Projektübersichtsseite die Projektmanager zu den einzelnen Projekten angezeigt werden sollen. Diese Option kann Performance-Einbussen bedeuten."
   label_project_manager_name: "Rolle des Managers"
