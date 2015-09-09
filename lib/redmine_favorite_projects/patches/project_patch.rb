@@ -1,8 +1,9 @@
 # encoding: utf-8
 
+require_dependency 'project'
+
 module RedmineFavoriteProjects
   module Patches
-
     module ProjectPatch
       def self.included(base)
         base.class_eval do
@@ -11,7 +12,5 @@ module RedmineFavoriteProjects
         end
       end
     end
-
-    Project.send(:include, RedmineFavoriteProjects::Patches::ProjectPatch)
   end
 end
