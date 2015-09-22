@@ -5,6 +5,14 @@ module RedmineFavoriteProjects
 
   module Helper
 
+    def favorite_css_classes(project,has_children)
+      s = project.css_classes
+      unless has_children
+        s = s.sub('parent', 'leaf')
+      end
+      s
+    end
+
     def roles_for_select(selected=nil)
       options = []
       @roles = Role.givable.all

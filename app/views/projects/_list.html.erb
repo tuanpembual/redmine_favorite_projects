@@ -11,7 +11,6 @@
    else
      manager_name = ''
    end
-
 %>
 <% if @projects.empty? %>
     <p class="nodata"><%= l(:label_no_data) %></p>
@@ -37,9 +36,9 @@
       <% plevel = 0 %>
       <% project_tree(@projects) do |project, level| %>
           <% project_id = "%04d" % project.id %>
-          <%  (plevel - level).times { ancestors.pop } if (level < plevel) %>
-          <% has_children = !project.children.empty? %>
-          <tr id="<%= project_id %>" class="<%= project.css_classes %> <%= level > 0 ? "hide #{ancestors.last}" : cycle("odd", "even") %>">
+          <% (plevel - level).times { ancestors.pop } if (level < plevel) %>
+          <% has_children = project.children.visible.any? %>
+          <tr id="<%= project_id %>" class="<%= favorite_css_classes(project, has_children) %> <%= level > 0 ? "hide #{ancestors.last}" : cycle("odd", "even") %>">
             <td class="favorite"><%= favorite_tag(project, User.current) %></td>
             <td class="name" style="padding-left: <%= (18 * level).to_s %>px">
               <% if has_children %>
