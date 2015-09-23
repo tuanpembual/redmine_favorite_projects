@@ -1,4 +1,4 @@
-<% if (Setting.plugin_redmine_favorite_projects['show_in_app_menu']) %>
+<% if (Setting.plugin_redmine_favorite_projects['show_in_app_menu']) && @project.nil? %>
 <div style="display:none">
 <div id="fav_projs">
     <% favorite_projects = get_favorite_list %>
