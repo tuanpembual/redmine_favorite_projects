@@ -4,6 +4,11 @@ Fork of http://www.redminecrm.com/projects/favoriteprojects/pages/1
 
 ## Changelog
 
+### 2015-12-03 v1.0.5
+
+* clear cache after project has changed
+* coding standards
+
 ### 2015-09-07 v1.0.4
 
 * caching has been added for project list
