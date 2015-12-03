@@ -7,7 +7,6 @@ module RedmineFavoriteProjects
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
-          unloadable
           after_save :clear_cache
         end
       end

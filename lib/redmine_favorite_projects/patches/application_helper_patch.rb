@@ -8,7 +8,6 @@ module RedmineFavoriteProjects
       def self.included(base) # :nodoc:
         base.send(:include, InstanceMethods)
         base.class_eval do
-          unloadable
           alias_method_chain :render_project_jump_box, :only_favorites
         end
       end

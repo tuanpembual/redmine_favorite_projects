@@ -2,7 +2,6 @@
 #
 
 class FavoriteProjectsController < ApplicationController
-  unloadable
   before_filter :find_project_by_project_id, except: :search
 
   helper ProjectsHelper
