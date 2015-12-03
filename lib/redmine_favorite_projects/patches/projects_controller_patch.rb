@@ -2,20 +2,16 @@
 
 module RedmineFavoriteProjects
   module Patches
-
     module ProjectsControllerPatch
-
       def self.included(base) # :nodoc:
         base.send(:include, InstanceMethods)
 
         base.class_eval do
           helper :favorite_projects
         end
-
       end
 
       module InstanceMethods
-
         def favorite
           if @project.respond_to?(:visible?) && !@project.visible?(User.current)
             render_403
@@ -25,7 +21,7 @@ module RedmineFavoriteProjects
         end
 
         def unfavorite
-           set_favorite(User.current, false)
+          set_favorite(User.current, false)
         end
 
         # Returns the css class used to identify watch links for a given +object+
@@ -40,7 +36,7 @@ module RedmineFavoriteProjects
             favorite_project = FavoriteProject.find_by_project_id_and_user_id(@project.id, user.id)
             favorite_project.delete if favorite_project
           else
-            FavoriteProject.create(:project_id => @project.id, :user_id => user.id)
+            FavoriteProject.create(project_id: @project.id, user_id: user.id)
           end
 
           respond_to do |format|
@@ -48,11 +44,9 @@ module RedmineFavoriteProjects
           end
 
         rescue ::ActionController::RedirectBackError
-          render :text => (watching ? 'Favorite added.' : 'Favorite removed.'), :layout => true
+          render text: (watching ? 'Favorite added.' : 'Favorite removed.'), layout: true
         end
-
       end
-
     end
   end
 end
