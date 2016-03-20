@@ -15,7 +15,7 @@ module RedmineFavoriteProjects
       module InstanceMethods
         def render_project_jump_box_with_only_favorites
           favorite_projects = favorite_list
-          return if favorite_projects.nil? && !favorite_projects.any?
+          return if favorite_projects.nil? || !favorite_projects.any?
           s = "<select onchange=\"if (this.value != '') { window.location = this.value; }\"> \
                <option value=\"\">#{l(:label_jump_to_a_project)}</option> \
                <option value=\"\" disabled=\"disabled\">---</option>"

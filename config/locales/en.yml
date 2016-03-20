@@ -32,4 +32,4 @@ en:
   project_name_view_id_name: "Project identifier: Project name"
   project_name_view_name_id: "Project name: Project identifier"
   project_name_view_info: "Determine the standard setting for your project name on the project overview. You can override this setting in the project settings."
-  
+  project_name_for_project_list: "Name for the project list"
