@@ -3,11 +3,15 @@
 
 module FavoriteProjectsHelper
   # include ProjectsHelper
-
   def favorite_tag(object, user)
-    return '' unless user && user.logged? && user.member_of?(object)
     favorite = FavoriteProject.favorite?(object.id, user.id)
-    if Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
+    default_favorite_behavior = Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
+    favorite_batch_tag(object, user, favorite, default_favorite_behavior)
+  end
+
+  def favorite_batch_tag(object, user, favorite, default_favorite_behavior)
+    return '' unless user && user.logged? && user.member_of?(object)
+    if default_favorite_behavior
       image_a = 'fav_off.png'
       image_b = 'fav.png'
     else
