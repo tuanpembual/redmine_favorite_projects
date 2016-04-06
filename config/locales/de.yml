@@ -32,3 +32,4 @@ de:
   project_name_view_id_name: "Projektkennung: Projektname"
   project_name_view_name_id: "Projektname: Projektkennung"
   project_name_view_info: "Hier wird die Standarddarstellung für den Projektnamen auf der Projektübersichtsseite festgelegt. Diese Einstellung kann in der Projekteinstellung überschrieben werden."
+  project_name_for_project_list: "Projektname für Projektliste"

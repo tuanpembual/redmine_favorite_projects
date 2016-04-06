@@ -13,7 +13,7 @@ module RedmineFavoriteProjects
         l(:project_name_view_id_name) => '3',
         l(:project_name_view_name_id) => '4'
       }
-      content_tag(:p, f.select(:project_name_view, options, label: 'Projektname für Projektliste'))
+      content_tag(:p, f.select(:project_name_view, options, label: :project_name_for_project_list))
     end
   end
 end

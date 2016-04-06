@@ -6,11 +6,14 @@
    show_project_homepage = Setting.plugin_redmine_favorite_projects['show_project_homepage'].to_s
    show_project_modules = Setting.plugin_redmine_favorite_projects['show_project_modules'].to_s
    show_project_progress = Setting.plugin_redmine_favorite_projects['show_project_progress'].to_s
+   default_favorite_behavior = Setting.plugin_redmine_favorite_projects['default_favorite_behavior'].to_s.empty?
    unless show_project_manager.nil? || show_project_manager==0
      manager_name = Setting.plugin_redmine_favorite_projects['project_manager_name'].to_s
    else
      manager_name = ''
    end
+   favorite_projects = FavoriteProject.where(user_id: User.current).pluck(:project_id)
+   parent_projects = Project.visible.distinct.pluck(:parent_id)
 %>
 <% if @projects.empty? %>
     <p class="nodata"><%= l(:label_no_data) %></p>
@@ -37,9 +40,11 @@
       <% project_tree(@projects) do |project, level| %>
           <% project_id = "%04d" % project.id %>
           <% (plevel - level).times { ancestors.pop } if (level < plevel) %>
-          <% has_children = project.children.visible.any? %>
+          <% has_children = parent_projects.include?(project.id) %>
           <tr id="<%= project_id %>" class="<%= favorite_css_classes(project, has_children) %> <%= level > 0 ? "hide #{ancestors.last}" : cycle("odd", "even") %>">
-            <td class="favorite"><%= favorite_tag(project, User.current) %></td>
+            <td class="favorite">
+              <%= favorite_batch_tag(project, User.current, !favorite_projects.include?(project.id), default_favorite_behavior) %>
+            </td>
             <td class="name" style="padding-left: <%= (18 * level).to_s %>px">
               <% if has_children %>
                   <span class="expander" onclick="toggleShowHide(<%= "'#{project_id}'" %>)">&nbsp;</span>
