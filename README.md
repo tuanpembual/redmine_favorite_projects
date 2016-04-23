@@ -6,6 +6,11 @@ Fork of http://www.redminecrm.com/projects/favoriteprojects/pages/1
 
 ## Changelog
 
+### 2016-04-23 v1.0.6
+
+* custom project names fixed for app menu and in project jumpbox
+* project list performance tweaks
+
 ### 2015-12-03 v1.0.5
 
 * clear cache after project has changed
