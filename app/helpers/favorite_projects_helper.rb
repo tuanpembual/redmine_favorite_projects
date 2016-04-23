@@ -61,31 +61,6 @@ module FavoriteProjectsHelper
     cache_key
   end
 
-  def project_name(project)
-    if project.project_name_view.blank? || project.project_name_view == '0'
-      project_name_view = Setting.plugin_redmine_favorite_projects['project_name_view']
-    else
-      project_name_view = project.project_name_view
-    end
-
-    name = case project_name_view
-           when '2' then project.identifier
-           when '3' then project.identifier + ': ' + project.name
-           when '4' then project.name + ': ' + project.identifier
-           else project.name
-           end
-
-    if project.active?
-      if Setting.plugin_redmine_favorite_projects['show_project_desc'].to_s.blank?
-        link_to(name, project_path(project), title: project.short_description)
-      else
-        link_to(name, project_path(project))
-      end
-    else
-      h(name)
-    end
-  end
-
   def project_manager_list(project)
     managers = ''
     manager_name = Setting.plugin_redmine_favorite_projects['project_manager_name'].to_s

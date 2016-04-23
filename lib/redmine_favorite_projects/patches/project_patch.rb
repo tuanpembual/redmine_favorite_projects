@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require_dependency 'project'
-
 module RedmineFavoriteProjects
   module Patches
     module ProjectPatch
@@ -23,4 +21,8 @@ module RedmineFavoriteProjects
       end
     end
   end
+end
+
+unless Project.included_modules.include?(RedmineFavoriteProjects::Patches::ProjectPatch)
+  Project.send(:include, RedmineFavoriteProjects::Patches::ProjectPatch)
 end

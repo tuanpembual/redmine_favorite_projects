@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+require 'redmine'
+require 'redmine_favorite_projects'
+
 Redmine::Plugin.register :redmine_favorite_projects do
   name 'Redmine Favorite Projects plugin'
   description 'This is a favorite projects plugin for Redmine'
@@ -30,5 +33,3 @@ Redmine::Plugin.register :redmine_favorite_projects do
        last: true,
        if: proc { User.current.logged? && Setting.plugin_redmine_favorite_projects['show_in_app_menu'] }
 end
-
-require 'redmine_favorite_projects'

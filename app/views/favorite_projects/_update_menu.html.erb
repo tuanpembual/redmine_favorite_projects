@@ -4,7 +4,7 @@
     <% favorite_projects = favorite_list %>
     <% if !favorite_projects.nil? && favorite_projects.any? %>
         <% favorite_projects.each do |fav| %>
-            <li><%= link_to_project fav.project, {}, :class => 'icon' %></li>
+            <li><%= project_name(fav.project, false, class: 'icon') %></li>
         <% end %>
     <% end %>
 </div>

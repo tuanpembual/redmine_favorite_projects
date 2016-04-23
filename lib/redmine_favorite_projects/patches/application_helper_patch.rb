@@ -5,27 +5,51 @@ require_dependency 'application_helper'
 module RedmineFavoriteProjects
   module Patches
     module ApplicationHelperPatch
-      def self.included(base) # :nodoc:
-        base.send(:include, InstanceMethods)
+      def self.included(base)
         base.class_eval do
-          alias_method_chain :render_project_jump_box, :only_favorites
-        end
-      end
+          def render_project_jump_box
+             return unless User.current.logged?
+             favorite_projects = favorite_list
+             return if favorite_projects.nil? || !favorite_projects.any?
+             options =
+               ("<option value=''>#{ l(:label_jump_to_a_project) }</option>" +
+                '<option value="" disabled="disabled">---</option>').html_safe
 
-      module InstanceMethods
-        def render_project_jump_box_with_only_favorites
-          favorite_projects = favorite_list
-          return if favorite_projects.nil? || !favorite_projects.any?
-          s = "<select onchange=\"if (this.value != '') { window.location = this.value; }\"> \
-               <option value=\"\">#{l(:label_jump_to_a_project)}</option> \
-               <option value=\"\" disabled=\"disabled\">---</option>"
-          s << project_tree_options_for_select(favorite_projects, selected: @project) do |p|
-            { value: url_for(controller: 'projects', action: 'show', id: p, jump: current_menu_item) }
+             options << project_tree_options_for_select(favorite_projects, :selected => @project) do |p|
+               { :value => project_path(:id => p, :jump => current_menu_item) }
+             end
+
+             content_tag( :span, nil, :class => 'jump-box-arrow') +
+             select_tag('project_quick_jump_box', options, :onchange => 'if (this.value != \'\') { window.location = this.value; }')
+           end
+
+           def project_tree_options_for_select(projects, options = {})
+             s = ''.html_safe
+             if blank_text = options[:include_blank]
+               if blank_text == true
+                  blank_text = '&nbsp;'.html_safe
+               end
+               s << content_tag('option', blank_text, :value => '')
+             end
+             project_tree(projects) do |project, level|
+              name_prefix = (level > 0 ? '&nbsp;' * 2 * level + '&#187; ' : '').html_safe
+              tag_options = {:value => project.id}
+              if project == options[:selected] || (options[:selected].respond_to?(:include?) && options[:selected].include?(project))
+                tag_options[:selected] = 'selected'
+              else
+                tag_options[:selected] = nil
+              end
+              tag_options.merge!(yield(project)) if block_given?
+              s << content_tag('option', name_prefix + project_name(project, true), tag_options)
+            end
+            s.html_safe
           end
-          s << '</select>'
-          s.html_safe
         end
       end
     end
   end
+end
+
+unless ApplicationHelper.included_modules.include?(RedmineFavoriteProjects::Patches::ApplicationHelperPatch)
+  ApplicationHelper.send(:include, RedmineFavoriteProjects::Patches::ApplicationHelperPatch)
 end

@@ -3,6 +3,31 @@
 
 module RedmineFavoriteProjects
   module Helper
+    def project_name(project, only_text = false, html_options = {})
+      if project.project_name_view.blank? || project.project_name_view == '0'
+        project_name_view = Setting.plugin_redmine_favorite_projects['project_name_view']
+      else
+        project_name_view = project.project_name_view
+      end
+
+      name = case project_name_view
+             when '2' then project.identifier
+             when '3' then project.identifier + ': ' + project.name
+             when '4' then project.name + ': ' + project.identifier
+             else project.name
+             end
+
+      if project.active?
+        if Setting.plugin_redmine_favorite_projects['show_project_desc'].to_s.blank?
+          link_to(name, project_path(project), { title: project.short_description }.merge(html_options))
+        else
+          link_to(name, project_path(project), html_options)
+        end
+      else
+        h(name)
+      end
+    end
+
     def favorite_css_classes(project, has_children)
       s = project.css_classes
       s = s.sub('parent', 'leaf') unless has_children

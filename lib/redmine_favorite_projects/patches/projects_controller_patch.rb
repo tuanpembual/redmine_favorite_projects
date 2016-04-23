@@ -49,3 +49,7 @@ module RedmineFavoriteProjects
     end
   end
 end
+
+unless ProjectsController.included_modules.include? RedmineFavoriteProjects::Patches::ProjectsControllerPatch
+  ProjectsController.send(:include, RedmineFavoriteProjects::Patches::ProjectsControllerPatch)
+end
