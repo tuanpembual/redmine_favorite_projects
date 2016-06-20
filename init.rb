@@ -26,7 +26,7 @@ Redmine::Plugin.register :redmine_favorite_projects do
   }
   settings(default: default_settings, partial: 'settings/favorite_projects')
 
-  menu :application_menu, :favorite_menu, '',
+  menu :application_menu, :favorite_menu, '-',
        caption: '',
        html: { id: 'favorite-menu' },
        param: :project_id,

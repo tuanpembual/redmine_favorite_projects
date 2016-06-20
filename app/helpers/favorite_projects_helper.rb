@@ -37,7 +37,10 @@ module FavoriteProjectsHelper
   def table_view_modules_links(project)
     links = []
     menu_items_for(:project_menu, project) do |node|
-      links << link_to(extract_node_details(node, project)[0], extract_node_details(node, project)[1]) unless node.name == :overview
+      unless node.name == :overview || node.name == :new_object
+        links << link_to(extract_node_details(node, project)[0],
+                         extract_node_details(node, project)[1])
+      end
     end
     links.join(', ').html_safe
   end
