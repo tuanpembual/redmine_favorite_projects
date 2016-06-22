@@ -2,8 +2,7 @@
 #
 
 class FavoriteProjectsController < ApplicationController
-  before_filter :find_project_by_project_id, except: :search
-
+  before_action :find_project_by_project_id, except: :search
   helper ProjectsHelper
 
   def search
