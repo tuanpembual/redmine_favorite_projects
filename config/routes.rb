@@ -6,7 +6,7 @@ match 'favorite_projects/favorite',
       via: [:get]
 match 'favorite_projects/unfavorite',
       to: 'favorite_projects#unfavorite',
-      via: [:get]
+      via: [:get, :delete]
 match 'favorite_projects/search',
       to: 'favorite_projects#search',
       via: [:get, :put, :post],
