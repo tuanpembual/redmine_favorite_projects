@@ -35,11 +35,6 @@ class FavoriteProjectsController < ApplicationController
     set_favorite(User.current, false)
   end
 
-  # Returns the css class used to identify watch links for a given +object+
-  def favorite_css(object)
-    "#{object.class.to_s.underscore}-#{object.id}-favorite"
-  end
-
   private
 
   def set_favorite(user, favorite)

@@ -1,4 +1,13 @@
-match 'favorite_projects/:action',
-      controller: :favorite_projects, via: [:get, :post, :put]
+match 'favorite_projects/index',
+      to: 'favorite_projects#index',
+      via: [:get]
+match 'favorite_projects/favorite',
+      to: 'favorite_projects#favorite',
+      via: [:get]
+match 'favorite_projects/unfavorite',
+      to: 'favorite_projects#unfavorite',
+      via: [:get]
 match 'favorite_projects/search',
-      to: 'favorite_projects#search', as: 'search_favorite_projects', via: [:get, :put, :post]
+      to: 'favorite_projects#search',
+      via: [:get, :put, :post],
+      as: 'search_favorite_projects'
