@@ -3,7 +3,7 @@
 Redmine Favorite Projects is a plugin for Redmine. It is a fork/merge of redmine_favorite_projects and projects_tree_view.
 
 
-[![Jenkins Build Status](https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-favorite-projects "Jenkins Build Status")
+![Jenkins Build Status](https://pm.alphanodes.com/jenkins/buildStatus/icon?job=Devel-build-redmine-favorite-projects "Jenkins Build Status")
 
 ## Requirements
 
