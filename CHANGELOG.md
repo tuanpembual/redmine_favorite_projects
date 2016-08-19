@@ -1,6 +1,6 @@
 ## Changelog
 
-### 2016-06-? v1.0.7-dev
+### 2016-08-19 v1.0.7
 
 * Redmine 3.3+ support
 * code cleanups
