@@ -94,7 +94,7 @@ module FavoriteProjectsHelper
            "<small> / #{all_issues} total</small></div>" +
            progress_bar(issues_closed_percent,
                         width: '30em',
-                        legend: format('%0.0f%', issues_closed_percent))
+                        legend: format('%0.0f%%', issues_closed_percent))
     end
     project_versions = project_open(project)
 
@@ -118,7 +118,7 @@ module FavoriteProjectsHelper
         s << '</div><br />' +
              progress_bar([version.closed_percent, version.completed_percent],
                           width: '30em',
-                          legend: format('%0.0f%', version.completed_percent))
+                          legend: format('%0.0f%%', version.completed_percent))
       end
       s << '</div>'
     end
